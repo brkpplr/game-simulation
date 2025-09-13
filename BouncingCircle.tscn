@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6pnfg7mxko3a"]
+
+[ext_resource type="Script" uid="uid://dw17vqrffgykt" path="res://BouncingCircle.cs" id="1_j4k0l"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_01"]
+
+[node name="BouncingCircle" type="CharacterBody2D"]
+collision_mask = 2
+script = ExtResource("1_j4k0l")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+color = Color(1, 0, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_01")

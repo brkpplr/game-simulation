@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bj15gtirlmfy7"]
+[gd_scene load_steps=5 format=3 uid="uid://bj15gtirlmfy7"]
 
 [ext_resource type="PackedScene" uid="uid://dx5pkxuabtqh8" path="res://BouncingSquare.tscn" id="2_res_bouncingsquare_tscn"]
+[ext_resource type="PackedScene" uid="uid://b6pnfg7mxko3a" path="res://BouncingCircle.tscn" id="3_res_bouncingcircle_tscn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_01"]
 size = Vector2(720, 20)
@@ -65,17 +66,18 @@ offset_top = -640.0
 offset_right = 10.0
 offset_bottom = 640.0
 
-[node name="Square1" parent="." instance=ExtResource("2_res_bouncingsquare_tscn")]
+[node name="Circle1" parent="." instance=ExtResource("3_res_bouncingcircle_tscn")]
 position = Vector2(210, 704)
+CircleColor = Color(1, 0, 0, 1)
 
-[node name="Square2" parent="." instance=ExtResource("2_res_bouncingsquare_tscn")]
+[node name="Circle2" parent="." instance=ExtResource("3_res_bouncingcircle_tscn")]
 position = Vector2(413, 777)
-SquareColor = Color(1, 1, 0, 1)
+CircleColor = Color(1, 1, 0, 1)
 
-[node name="Square3" parent="." instance=ExtResource("2_res_bouncingsquare_tscn")]
+[node name="Circle3" parent="." instance=ExtResource("3_res_bouncingcircle_tscn")]
 position = Vector2(300, 566)
-SquareColor = Color(0, 0, 1, 1)
+CircleColor = Color(0, 0, 1, 1)
 
-[node name="Square4" parent="." instance=ExtResource("2_res_bouncingsquare_tscn")]
+[node name="Circle4" parent="." instance=ExtResource("3_res_bouncingcircle_tscn")]
 position = Vector2(415, 601)
-SquareColor = Color(0, 1, 0, 1)
+CircleColor = Color(0, 1, 0, 1)
