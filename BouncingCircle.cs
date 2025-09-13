@@ -5,8 +5,8 @@ public partial class BouncingCircle : CharacterBody2D
 {
 	[Export]
 	public Color CircleColor = Colors.Red; // Default color
-	public float Speed = 1000.0f;
-	public int Radius = 40;
+	public float Speed = 2000.0f;
+	public int Radius = 30;
 
 	public override void _Ready()
 	{
