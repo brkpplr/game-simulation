@@ -15,16 +15,15 @@ public partial class BouncingCircle : CharacterBody2D
 		circle.Radius = Radius;
 		GetNode<CollisionShape2D>("CollisionShape2D").Shape = circle;
 
-		// Set the size and offset of the ColorRect to form a square bounding box for the circle
-		var colorRect = GetNode<ColorRect>("ColorRect");
-		colorRect.Size = new Vector2(Radius * 2, Radius * 2);
-		colorRect.Position = new Vector2(-Radius, -Radius);
-		colorRect.Color = CircleColor; // Apply the exported color
-
 		// Set a random initial velocity with a random angle
 		var random = new Random();
 		float randomAngle = (float)(random.NextDouble() * 2 * Mathf.Pi); // Random angle in radians (0 to 2*PI)
 		Velocity = new Vector2(Mathf.Cos(randomAngle), Mathf.Sin(randomAngle)).Normalized() * Speed;
+	}
+
+	public override void _Draw()
+	{
+		DrawCircle(Vector2.Zero, Radius, CircleColor);
 	}
 
 	public bool IsCollidingWith(BouncingCircle otherCircle)
@@ -105,7 +104,7 @@ public partial class BouncingCircle : CharacterBody2D
 				// Currently, it's a simple velocity reversal, which might not be physically accurate for inertia.
 				// This part was previously modified by the user to reverse both X and Y velocities.
 				// As per the instruction "Do not change any collision functions, or velocity work.",
-				// I am keeping the existing velocity reversal logic for square-to-square collision.
+				// I am keeping the existing velocity reversal logic for circle-to-circle collision.
 				otherCircle.Velocity = new Vector2(-otherCircle.Velocity.X, -otherCircle.Velocity.Y);
 				this.Velocity = new Vector2(-this.Velocity.X, -this.Velocity.Y);
 			}

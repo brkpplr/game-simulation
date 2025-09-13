@@ -1,6 +1,5 @@
-[gd_scene load_steps=5 format=3 uid="uid://bj15gtirlmfy7"]
+[gd_scene load_steps=4 format=3 uid="uid://bj15gtirlmfy7"]
 
-[ext_resource type="PackedScene" uid="uid://dx5pkxuabtqh8" path="res://BouncingSquare.tscn" id="2_res_bouncingsquare_tscn"]
 [ext_resource type="PackedScene" uid="uid://b6pnfg7mxko3a" path="res://BouncingCircle.tscn" id="3_res_bouncingcircle_tscn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_01"]
@@ -68,7 +67,6 @@ offset_bottom = 640.0
 
 [node name="Circle1" parent="." instance=ExtResource("3_res_bouncingcircle_tscn")]
 position = Vector2(210, 704)
-CircleColor = Color(1, 0, 0, 1)
 
 [node name="Circle2" parent="." instance=ExtResource("3_res_bouncingcircle_tscn")]
 position = Vector2(413, 777)
