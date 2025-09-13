@@ -95,18 +95,15 @@ public partial class BouncingCircle : CharacterBody2D
 			Velocity = new Vector2(Velocity.X, -Velocity.Y); // Reverse vertical velocity
 		}
 
-		// Placeholder for circle-to-circle collision detection
 		foreach (BouncingCircle otherCircle in GetAllOtherBouncingCircles())
 		{
 			if (this != otherCircle && IsCollidingWith(otherCircle))
 			{
-				// Placeholder for collision response between two circles
-				// Currently, it's a simple velocity reversal, which might not be physically accurate for inertia.
-				// This part was previously modified by the user to reverse both X and Y velocities.
-				// As per the instruction "Do not change any collision functions, or velocity work.",
-				// I am keeping the existing velocity reversal logic for circle-to-circle collision.
-				otherCircle.Velocity = new Vector2(-otherCircle.Velocity.X, -otherCircle.Velocity.Y);
-				this.Velocity = new Vector2(-this.Velocity.X, -this.Velocity.Y);
+				Vector2 collisionNormal = (this.Position - otherCircle.Position).Normalized();
+				this.Velocity = collisionNormal * this.Speed;
+
+				Vector2 otherCollisionNormal = (otherCircle.Position - this.Position).Normalized();
+				otherCircle.Velocity = otherCollisionNormal * otherCircle.Speed;
 			}
 		}
 
