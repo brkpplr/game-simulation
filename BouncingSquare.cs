@@ -5,8 +5,8 @@ public partial class BouncingSquare : CharacterBody2D
 {
 	[Export]
 	public Color SquareColor = Colors.Red; // Default color
-	public float Speed = 400.0f;
-	public int Size = 20;
+	public float Speed = 1000.0f;
+	public int Size = 40;
 
 	public override void _Ready()
 	{
@@ -21,13 +21,46 @@ public partial class BouncingSquare : CharacterBody2D
 		colorRect.Position = new Vector2(-Size / 2, -Size / 2);
 		colorRect.Color = SquareColor; // Apply the exported color
 
-		// Set a random initial velocity
+		// Set a random initial velocity with a random angle
 		var random = new Random();
-		Velocity = new Vector2(random.Next(-1, 2), random.Next(-1, 2)).Normalized() * Speed;
-		if (Velocity == Vector2.Zero)
+		float randomAngle = (float)(random.NextDouble() * 2 * Mathf.Pi); // Random angle in radians (0 to 2*PI)
+		Velocity = new Vector2(Mathf.Cos(randomAngle), Mathf.Sin(randomAngle)).Normalized() * Speed;
+	}
+
+	public bool IsCollidingWith(BouncingSquare otherSquare)
+	{
+		// Calculate the half-sizes for both squares
+		float thisHalfSize = this.Size / 2.0f;
+		float otherHalfSize = otherSquare.Size / 2.0f;
+
+		// Calculate the centers of both squares (Position is already the center)
+		Vector2 thisCenter = this.Position;
+		Vector2 otherCenter = otherSquare.Position;
+
+		// Calculate the absolute distance between the centers on each axis
+		float deltaX = Mathf.Abs(thisCenter.X - otherCenter.X);
+		float deltaY = Mathf.Abs(thisCenter.Y - otherCenter.Y);
+
+		// If the sum of half-sizes is greater than the distance between centers on both axes, they are colliding
+		return (deltaX < (thisHalfSize + otherHalfSize)) && (deltaY < (thisHalfSize + otherHalfSize));
+	}
+
+	private System.Collections.Generic.List<BouncingSquare> GetAllOtherBouncingSquares()
+	{
+		System.Collections.Generic.List<BouncingSquare> otherSquares = new System.Collections.Generic.List<BouncingSquare>();
+		Node parent = GetParent();
+
+		if (parent != null)
 		{
-			Velocity = Vector2.Right * Speed; // Avoid zero velocity
+			foreach (Node child in parent.GetChildren())
+			{
+				if (child is BouncingSquare otherSquare && otherSquare != this)
+				{
+					otherSquares.Add(otherSquare);
+				}
+			}
 		}
+		return otherSquares;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -61,6 +94,19 @@ public partial class BouncingSquare : CharacterBody2D
 		{
 			newPosition.Y = screenSize.Y - halfSize; // Adjust position to be at the wall
 			Velocity = new Vector2(Velocity.X, -Velocity.Y); // Reverse vertical velocity
+		}
+
+		// Placeholder for square-to-square collision detection
+		// In a real scenario without Godot's built-in physics, you would need a way
+		// to get all other BouncingSquare instances in the scene and iterate through them.
+		// For example:
+		foreach (BouncingSquare otherSquare in GetAllOtherBouncingSquares())
+		{
+			if (this != otherSquare && IsCollidingWith(otherSquare))
+			{
+				otherSquare.Velocity = new Vector2(-otherSquare.Velocity.X, -otherSquare.Velocity.Y);
+				this.Velocity = new Vector2(-this.Velocity.X, -this.Velocity.Y);
+			}
 		}
 
 		Position = newPosition;
