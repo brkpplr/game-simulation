@@ -5,7 +5,7 @@ public partial class BouncingCircle : CharacterBody2D
 {
 	[Export]
 	public Color CircleColor = Colors.Red; // Default color
-	public float Speed = 2000.0f;
+	public float Speed = 6000.0f;
 	public int Radius = 30;
 
 	public override void _Ready()
@@ -72,26 +72,26 @@ public partial class BouncingCircle : CharacterBody2D
 		// Check for collision with left wall
 		if (newPosition.X - currentRadius < 0)
 		{
-			newPosition.X = currentRadius; // Adjust position to be at the wall
+			newPosition.X = 2 * currentRadius - newPosition.X; // Reflect position across the wall
 			Velocity = new Vector2(-Velocity.X, Velocity.Y); // Reverse horizontal velocity
 		}
 		// Check for collision with right wall
 		else if (newPosition.X + currentRadius > screenSize.X)
 		{
-			newPosition.X = screenSize.X - currentRadius; // Adjust position to be at the wall
+			newPosition.X = 2 * (screenSize.X - currentRadius) - newPosition.X; // Reflect position across the wall
 			Velocity = new Vector2(-Velocity.X, Velocity.Y); // Reverse horizontal velocity
 		}
 
 		// Check for collision with top wall
 		if (newPosition.Y - currentRadius < 0)
 		{
-			newPosition.Y = currentRadius; // Adjust position to be at the wall
+			newPosition.Y = 2 * currentRadius - newPosition.Y; // Reflect position across the wall
 			Velocity = new Vector2(Velocity.X, -Velocity.Y); // Reverse vertical velocity
 		}
 		// Check for collision with bottom wall
 		else if (newPosition.Y + currentRadius > screenSize.Y)
 		{
-			newPosition.Y = screenSize.Y - currentRadius; // Adjust position to be at the wall
+			newPosition.Y = 2 * (screenSize.Y - currentRadius) - newPosition.Y; // Reflect position across the wall
 			Velocity = new Vector2(Velocity.X, -Velocity.Y); // Reverse vertical velocity
 		}
 
