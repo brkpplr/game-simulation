@@ -5,8 +5,8 @@ public partial class BouncingCircle : CharacterBody2D
 {
 	[Export]
 	public Color CircleColor = Colors.Red; // Default color
-	public float Speed = 6000.0f;
-	public int Radius = 30;
+	public float Speed = 1000.0f;
+	public int Radius = 20;
 
 	public override void _Ready()
 	{
@@ -64,37 +64,19 @@ public partial class BouncingCircle : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		Vector2 newPosition = Position + Velocity * (float)delta;
+		// Calculate the desired movement vector
+		Vector2 movement = Velocity * (float)delta;
 
-		Vector2 screenSize = GetViewportRect().Size;
-		float currentRadius = Radius;
+		// Use MoveAndCollide for physics-based collision detection and response
+		KinematicCollision2D collision = MoveAndCollide(movement);
 
-		// Check for collision with left wall
-		if (newPosition.X - currentRadius < 0)
+		if (collision != null)
 		{
-			newPosition.X = 2 * currentRadius - newPosition.X; // Reflect position across the wall
-			Velocity = new Vector2(-Velocity.X, Velocity.Y); // Reverse horizontal velocity
-		}
-		// Check for collision with right wall
-		else if (newPosition.X + currentRadius > screenSize.X)
-		{
-			newPosition.X = 2 * (screenSize.X - currentRadius) - newPosition.X; // Reflect position across the wall
-			Velocity = new Vector2(-Velocity.X, Velocity.Y); // Reverse horizontal velocity
+			// Reflect the velocity based on the collision normal
+			Velocity = Velocity.Bounce(collision.GetNormal());
 		}
 
-		// Check for collision with top wall
-		if (newPosition.Y - currentRadius < 0)
-		{
-			newPosition.Y = 2 * currentRadius - newPosition.Y; // Reflect position across the wall
-			Velocity = new Vector2(Velocity.X, -Velocity.Y); // Reverse vertical velocity
-		}
-		// Check for collision with bottom wall
-		else if (newPosition.Y + currentRadius > screenSize.Y)
-		{
-			newPosition.Y = 2 * (screenSize.Y - currentRadius) - newPosition.Y; // Reflect position across the wall
-			Velocity = new Vector2(Velocity.X, -Velocity.Y); // Reverse vertical velocity
-		}
-
+		// Placeholder for circle-to-circle collision detection
 		foreach (BouncingCircle otherCircle in GetAllOtherBouncingCircles())
 		{
 			if (this != otherCircle && IsCollidingWith(otherCircle))
@@ -106,7 +88,5 @@ public partial class BouncingCircle : CharacterBody2D
 				otherCircle.Velocity = otherCollisionNormal * otherCircle.Speed;
 			}
 		}
-
-		Position = newPosition;
 	}
 }

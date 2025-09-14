@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bj15gtirlmfy7"]
+[gd_scene load_steps=5 format=3 uid="uid://bj15gtirlmfy7"]
 
 [ext_resource type="PackedScene" uid="uid://b6pnfg7mxko3a" path="res://BouncingCircle.tscn" id="3_res_bouncingcircle_tscn"]
 
@@ -7,6 +7,9 @@ size = Vector2(720, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_02"]
 size = Vector2(20, 1280)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_HalfWidth"]
+size = Vector2(360, 20)
 
 [node name="MainScene" type="Node2D"]
 
@@ -57,7 +60,7 @@ offset_bottom = 640.0
 [node name="WallRight" type="CollisionShape2D" parent="Walls"]
 position = Vector2(720, 640)
 shape = SubResource("RectangleShape2D_02")
-debug_color = Color(1, 1, 1, 0.42)
+debug_color = Color(1, 1, 1, 1)
 
 [node name="WallRight#ColorRect" type="ColorRect" parent="Walls/WallRight"]
 offset_left = -10.0
@@ -65,19 +68,70 @@ offset_top = -640.0
 offset_right = 10.0
 offset_bottom = 640.0
 
+[node name="RectangleWalls" type="StaticBody2D" parent="."]
+collision_layer = 2
+
+[node name="Rectangle1" type="CollisionShape2D" parent="RectangleWalls"]
+position = Vector2(270, 256)
+scale = Vector2(1.5, 1)
+shape = SubResource("RectangleShape2D_HalfWidth")
+debug_color = Color(1, 1, 1, 1)
+
+[node name="ColorRect" type="ColorRect" parent="RectangleWalls/Rectangle1"]
+offset_left = -180.0
+offset_top = -10.0
+offset_right = 180.0
+offset_bottom = 10.0
+
+[node name="Rectangle2" type="CollisionShape2D" parent="RectangleWalls"]
+position = Vector2(450, 512)
+scale = Vector2(1.5, 1)
+shape = SubResource("RectangleShape2D_HalfWidth")
+debug_color = Color(1, 1, 1, 1)
+
+[node name="ColorRect" type="ColorRect" parent="RectangleWalls/Rectangle2"]
+offset_left = -180.0
+offset_top = -10.0
+offset_right = 180.0
+offset_bottom = 10.0
+
+[node name="Rectangle3" type="CollisionShape2D" parent="RectangleWalls"]
+position = Vector2(270, 768)
+scale = Vector2(1.5, 1)
+shape = SubResource("RectangleShape2D_HalfWidth")
+debug_color = Color(1, 1, 1, 1)
+
+[node name="ColorRect" type="ColorRect" parent="RectangleWalls/Rectangle3"]
+offset_left = -180.0
+offset_top = -10.0
+offset_right = 180.0
+offset_bottom = 10.0
+
+[node name="Rectangle4" type="CollisionShape2D" parent="RectangleWalls"]
+position = Vector2(450, 1024)
+scale = Vector2(1.5, 1)
+shape = SubResource("RectangleShape2D_HalfWidth")
+debug_color = Color(1, 1, 1, 1)
+
+[node name="ColorRect" type="ColorRect" parent="RectangleWalls/Rectangle4"]
+offset_left = -180.0
+offset_top = -10.0
+offset_right = 180.0
+offset_bottom = 10.0
+
 [node name="Circle1" parent="." instance=ExtResource("3_res_bouncingcircle_tscn")]
-position = Vector2(210, 704)
+position = Vector2(99, 167)
 
 [node name="Circle2" parent="." instance=ExtResource("3_res_bouncingcircle_tscn")]
-position = Vector2(117, 379)
+position = Vector2(38, 44)
 CircleColor = Color(1, 1, 0, 1)
 
 [node name="Circle3" parent="." instance=ExtResource("3_res_bouncingcircle_tscn")]
-position = Vector2(300, 566)
+position = Vector2(43, 104)
 CircleColor = Color(0, 0, 1, 1)
 
 [node name="Circle4" parent="." instance=ExtResource("3_res_bouncingcircle_tscn")]
-position = Vector2(415, 601)
+position = Vector2(37, 157)
 CircleColor = Color(0, 1, 0, 1)
 
 [node name="Circle5" parent="." instance=ExtResource("3_res_bouncingcircle_tscn")]
@@ -85,13 +139,13 @@ position = Vector2(100, 100)
 CircleColor = Color(1, 0, 1, 1)
 
 [node name="Circle6" parent="." instance=ExtResource("3_res_bouncingcircle_tscn")]
-position = Vector2(108, 206)
+position = Vector2(39, 211)
 CircleColor = Color(0, 1, 1, 1)
 
 [node name="Circle7" parent="." instance=ExtResource("3_res_bouncingcircle_tscn")]
-position = Vector2(200, 1100)
+position = Vector2(102, 46)
 CircleColor = Color(1, 0.5, 0, 1)
 
 [node name="Circle8" parent="." instance=ExtResource("3_res_bouncingcircle_tscn")]
-position = Vector2(138, 889)
+position = Vector2(91, 219)
 CircleColor = Color(0.5, 0, 0.5, 1)
