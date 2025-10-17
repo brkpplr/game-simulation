@@ -12,6 +12,7 @@ size = Vector2(20, 1280)
 size = Vector2(360, 20)
 
 [node name="MainScene" type="Node2D"]
+metadata/movie_file = "C:\\Users\\bruno\\Videos"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(360, 640)
